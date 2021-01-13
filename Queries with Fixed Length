@@ -1,0 +1,28 @@
+Problem : Queries with Fixed Length - Hackerrank
+This problem is an appication of Sliding window maximum (Search in GFG for further details)
+Solution in Python 3 
+
+def solve(arr, queries): n = len(arr) result = []
+
+  for d in queries :
+   
+
+    dq = deque()
+    max_element = []
+    for i in range(d):
+        while dq and  arr[i] >= arr[dq[-1]] :
+            dq.pop()
+        dq.append(i)
+
+    max_element.append(arr[dq[0]])
+
+    for i in range(d,n):
+        while dq and arr[i] >= arr[dq[-1]] :
+            dq.pop()
+        dq.append(i)
+        if dq[-1] - dq[0] == d :
+            dq.popleft()
+        max_element.append(arr[dq[0]])
+
+    result.append(min(max_element))
+return result
